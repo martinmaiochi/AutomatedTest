@@ -6,7 +6,7 @@ namespace GmailTests
 {
 	public static class Settings
 	{
-		public const string EmailLogin = "tucamaiochi@gmail.com";
-		public const string EmailPassword = "Access1234";
+		public const string EmailLogin = "Your e-mail";
+		public const string EmailPassword = "Your password";
 	}
 }
