@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 
 namespace GmailTests
 {
@@ -20,7 +16,7 @@ namespace GmailTests
 		public IWebElement IdentifierNextButton => _driver.FindElement(By.XPath("//*[@id=\"identifierNext\"]/span/span"));
 		public IWebElement PasswordNextButton => _driver.FindElement(By.XPath("//*[@id=\"passwordNext\"]/span/span"));
 		public IWebElement SendButton => _driver.FindElement(By.XPath(".//*[contains(@class, 'T-I') and contains(@class, 'J-J5-Ji') and contains(@class, 'aoO')]"));
-
+		public IWebElement BinButton => _driver.FindElement(By.CssSelector("[data-tooltip=\"Bin\"] .bzz .aio .nU a[title=\"Bin\"]"));
 
 		//Fields//
 		public IWebElement UserNameField => _driver.FindElement(By.XPath("//*[@id=\"identifierId\"]"));
