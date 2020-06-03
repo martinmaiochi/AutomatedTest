@@ -16,6 +16,15 @@ namespace GmailTests
         [TearDown]
         protected virtual void TearDownTest()
         {
+			try
+			{
+                var alert = driver.SwitchTo().Alert();
+                alert.Dismiss();
+            }
+			catch (NoAlertPresentException)
+			{
+                //if alert was not found, continue the excecution normally
+			}
             driver.Close();
         }
 
@@ -24,7 +33,7 @@ namespace GmailTests
         {
             URL = "https://www.gmail.com";
             driver = new ChromeDriver();
-            components = new Components(driver);
+			components = new Components(driver);
             driver.Navigate().GoToUrl(URL);
             Autenticate();
         }
@@ -32,15 +41,15 @@ namespace GmailTests
         public void Autenticate()
         {
             System.Threading.Thread.Sleep(2000);
-            components.UserNameField.Click();
+            components.LoginPage.UserNameField.Click();
             System.Threading.Thread.Sleep(2000);
-            components.UserNameField.SendKeys(Settings.EmailLogin);
-            components.UserNameField.SendKeys(Keys.Enter);
+            components.LoginPage.UserNameField.SendKeys(Settings.EmailLogin);
+            components.LoginPage.UserNameField.SendKeys(Keys.Enter);
             System.Threading.Thread.Sleep(4000);
-            components.PasswordField.SendKeys(Settings.EmailPassword);
-            components.PasswordNextButton.Click();
+            components.LoginPage.PasswordField.SendKeys(Settings.EmailPassword);
+            components.LoginPage.PasswordNextButton.Click();
             System.Threading.Thread.Sleep(4000);
-            if (!components.ComposeButton.Displayed)
+            if (!components.MainPage.ComposeButton.Displayed)
             {
                 Assert.Fail("Login was not successful");
             }
