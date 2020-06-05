@@ -9,10 +9,10 @@ namespace GmailTests
         public void EmptyBinIfPossible() 
         {
             System.Threading.Thread.Sleep(2000);
-            if (components.MainPage.EmptyBinNowButton?.Displayed ?? true)
+            if (components.BinPage.EmptyBinNowButton?.Displayed ?? true)
             {
-                components.MainPage.EmptyBinNowButton.Click();
-                components.MainPage.ConfirmEmptyBinNowButton.Click();
+                components.BinPage.EmptyBinNowButton.Click();
+                components.BinPage.ConfirmEmptyBinNowButton.Click();
             }
             Assert.Pass();
         }

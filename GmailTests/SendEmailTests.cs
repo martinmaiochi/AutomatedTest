@@ -8,7 +8,7 @@ namespace GmailTests
     public class SendEmailTests : GmailTestsBase
     {
         [Test(Description = "Send an e-mail")]
-        [TestCase("tucamaiochi@gmail.com", "title", "text", ExpectedResult = true)]
+        [TestCase("tucamaiochi@gmail.com", "titleforTest", "text", ExpectedResult = true)]
         [TestCase("tucamaiochigmail.com", "title", "text", ExpectedResult = false)]
         public bool MessageSentDisplayed(string emailTo, string title, string emailBody)
         {
