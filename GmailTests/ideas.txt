@@ -1,0 +1,14 @@
+﻿main page
+-email recieved
+
+-Mark email as read
+	"za ze"(not read) 
+	"za yO"(read)
+
+-verify attachment
+-Send mail w/ attachment 
+-check if storage is almost full 
+-checkbox tests
+
+settings page
+-check if number os emails are correctly according to the page size.

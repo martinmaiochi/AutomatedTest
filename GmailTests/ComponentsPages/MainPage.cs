@@ -29,7 +29,8 @@ namespace GmailTests.ComponentsPages
 		//Strings//
 		public IWebElement MessageSentString => _driver.FindElements(By.CssSelector(".J-J5-Ji .vh .aT .bAq")).FirstOrDefault();
 		public IWebElement FirstEmailTitleString => _driver.FindElement(By.CssSelector("[role =\"grid\"] tr:first-of-type .xY .xS .xT .y6 .bog span"));//Used to get Title of the first email on the grid
-	
+		public IWebElement FirstEmailRow => _driver.FindElement(By.CssSelector("[role =\"grid\"] tr:first-of-type"));
+
 		//pop-ups//
 		public IWebElement NoRecipientPopUp => _driver.FindElement(By.ClassName("Kj-JD-Jz"));
 	}
