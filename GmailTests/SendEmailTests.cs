@@ -4,12 +4,13 @@ using OpenQA.Selenium;
 
 namespace GmailTests
 {
-	[TestFixture]
+    [TestFixture]
     public class SendEmailTests : GmailTestsBase
     {
         [Test(Description = "Send an e-mail")]
         [TestCase("tucamaiochi@gmail.com", "titleforTest", "text", ExpectedResult = true)]
         [TestCase("tucamaiochigmail.com", "title", "text", ExpectedResult = false)]
+        [TestCase("", "", "", ExpectedResult = false)]
         public bool MessageSentDisplayed(string emailTo, string title, string emailBody)
         {
             System.Threading.Thread.Sleep(2000);
@@ -37,16 +38,22 @@ namespace GmailTests
             components.MainPage.EmailBodyField.SendKeys(emailBody);
             components.MainPage.SendButton.Click();
             System.Threading.Thread.Sleep(1000);
-			try
-			{
+            try
+            {
                 var alert = driver.SwitchTo().Alert().Text;
                 return alert.Contains("It seems like you have forgotten to attach a file.");
             }
-			catch (NoAlertPresentException)
-			{
+            catch (NoAlertPresentException)
+            {
                 return false;
-			}
+            }
 
+        }
+        [Test]
+        public void test()
+        {
+            System.Threading.Thread.Sleep(2000);
+            var row = components.MainPage.FirstEmailRow.GetAttribute("class");
         }
 
         [TestCase("title", "text", ExpectedResult = true)]
