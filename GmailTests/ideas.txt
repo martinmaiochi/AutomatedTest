@@ -1,11 +1,4 @@
-﻿main page
--email recieved
-
--Mark email as read
-	"za ze"(not read) 
-	"za yO"(read)
-
--verify attachment
+﻿-verify attachment
 -Send mail w/ attachment 
 -check if storage is almost full 
 -checkbox tests
