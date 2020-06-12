@@ -1,13 +1,15 @@
 ﻿using System.Runtime.InteropServices.WindowsRuntime;
+using GmailTests.Helpers;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace GmailTests
 {
     [TestFixture]
     public class SendEmailTests : GmailTestsBase
     {
-        [Test(Description = "Send an e-mail")]
+        [Test(Description = "Send an e-mail and verify if notification was shown")]
         [TestCase("tucamaiochi@gmail.com", "titleforTest", "text", false, ExpectedResult = true)]
         [TestCase("tucamaiochi@gmail.com", "emailWithAttachment", "text", true, ExpectedResult = true)]
         [TestCase("tucamaiochigmail.com", "title", "text", false, ExpectedResult = false)]
@@ -33,9 +35,19 @@ namespace GmailTests
             return true;
         }
 
+        [Test(Description = "Send an e-mail with attachment and check if it's row has a Clip icon")]
+        [TestCase("tucamaiochi@gmail.com", "titleforTest", "text", true, ExpectedResult = true)]
+        [TestCase("tucamaiochi@gmail.com", "titleforTest", "text", false, ExpectedResult = false)]
+        public bool CheckAttachmentIcon(string emailTo, string title, string emailBody, bool hasAttachment)
+        {
+            SendEmail(emailTo, title, emailBody, hasAttachment);
+            return EmailRowHelper.HasAttachment(components.MainPage.FirstEmailRow);
+        }
+
+        [Test(Description = "Check notification given when you mention attachment without attaching file")]
         [TestCase("tucamaiochi@gmail.com", "title", "I'm attaching this document", ExpectedResult = true)]
         [TestCase("tucamaiochi@gmail.com", "title", "text", ExpectedResult = false)]
-        public bool CheckMissingAttachementMessage(string emailTo, string title, string emailBody)
+        public bool CheckMissingAttachmentMessage(string emailTo, string title, string emailBody)
         {
             SendEmail(emailTo, title, emailBody, false);
             System.Threading.Thread.Sleep(1000);
@@ -50,24 +62,25 @@ namespace GmailTests
             }
 
         }
+
         [Test(Description = "Open an email and check if it's row was marked as 'read'")]
         [TestCase("tucamaiochi@gmail.com", "CheckEmailWasReadTest", "description", ExpectedResult = true)]
         public bool CheckEmailWasRead(string emailTo, string title, string emailBody)
         {
             SendEmail(emailTo, title, emailBody, false);
             System.Threading.Thread.Sleep(2000);
-            var firstRow = components.MainPage.FirstEmailRow.GetAttribute("class");
+            var firstRow = components.MainPage.FirstEmailRow;
             
-            Assert.IsTrue(firstRow.Contains("zE"));
+            Assert.IsTrue(EmailRowHelper.IsUnread(firstRow));
 
             components.MainPage.FirstEmailRow.Click();
             System.Threading.Thread.Sleep(2000);
             components.MainPage.InboxButton.Click();
             System.Threading.Thread.Sleep(2000);
 
-            var firstRowRead = components.MainPage.FirstEmailRow.GetAttribute("class");
+            var firstRowRead = components.MainPage.FirstEmailRow;
 
-            Assert.IsTrue(firstRowRead.Contains("yO"));
+            Assert.IsTrue(EmailRowHelper.IsRead(firstRowRead));
 
             return true;
         }
@@ -86,6 +99,7 @@ namespace GmailTests
             return true;
         }
 
+        [Test(Description = "verify if notification of missing email address is shown")]
         [TestCase("title", "text", ExpectedResult = true)]
         public bool MissingToNotification(string title, string emailBody)
         {
@@ -95,6 +109,29 @@ namespace GmailTests
             {
                 return false;
             }
+            return true;
+        }
+
+        [Test(Description = "Mark a read email as unread and check if row is as unread")]
+        [TestCase("tucamaiochi@gmail.com", "title", "text", ExpectedResult = true)]
+        public bool CheckEmailUnreadRow(string emailTo, string title, string emailBody)
+        {
+            SendEmail(emailTo, title, emailBody, false);
+            components.MainPage.FirstEmailRow.Click();
+            System.Threading.Thread.Sleep(2000);
+            components.MainPage.InboxButton.Click();
+            System.Threading.Thread.Sleep(2000);
+
+            var checkbox = EmailRowHelper.GetCheckBox(components.MainPage.FirstEmailRow);
+            checkbox.Click();
+
+            System.Threading.Thread.Sleep(1000);
+            components.MainPage.MarkAsUnreadButton.Click();
+            System.Threading.Thread.Sleep(2000);
+            components.MainPage.FirstEmailCheckBoxButton.Click();
+
+            EmailRowHelper.IsUnread(components.MainPage.FirstEmailRow);
+
             return true;
         }
 
@@ -120,7 +157,7 @@ namespace GmailTests
 
             if (attachment)
             {
-                components.MainPage.AttachFileInput.SendKeys("./Attachments/picture.png");
+                components.MainPage.AttachFileInput.SendKeys(System.Environment.CurrentDirectory + "\\Attachments\\picture.png");
                 System.Threading.Thread.Sleep(3000);
             }
             components.MainPage.SendButton.Click();

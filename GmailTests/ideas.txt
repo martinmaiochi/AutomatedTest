@@ -1,4 +1,4 @@
-﻿-verify attachment
+﻿-mark email as unread and check if it acctually unread
 -Send mail w/ attachment 
 -check if storage is almost full 
 -checkbox tests
