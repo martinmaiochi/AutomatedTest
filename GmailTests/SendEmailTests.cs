@@ -70,7 +70,7 @@ namespace GmailTests
             SendEmail(emailTo, title, emailBody, false);
             System.Threading.Thread.Sleep(2000);
             var firstRow = components.MainPage.FirstEmailRow;
-            
+
             Assert.IsTrue(EmailRowHelper.IsUnread(firstRow));
 
             components.MainPage.FirstEmailRow.Click();
@@ -128,7 +128,8 @@ namespace GmailTests
             System.Threading.Thread.Sleep(1000);
             components.MainPage.MarkAsUnreadButton.Click();
             System.Threading.Thread.Sleep(2000);
-            components.MainPage.FirstEmailCheckBoxButton.Click();
+            checkbox = EmailRowHelper.GetCheckBox(components.MainPage.FirstEmailRow);
+            checkbox.Click();
 
             EmailRowHelper.IsUnread(components.MainPage.FirstEmailRow);
 
@@ -163,6 +164,13 @@ namespace GmailTests
             components.MainPage.SendButton.Click();
             System.Threading.Thread.Sleep(3000);
 
+        }
+
+        [Test]
+        public void test()
+        {
+            var text = EmailRowHelper.GetImportant(components.MainPage.FirstEmailRow);
+            text.Click();
         }
 
         protected override void SetupTest()

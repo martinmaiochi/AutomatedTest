@@ -21,7 +21,6 @@ namespace GmailTests.ComponentsPages
 		public IWebElement InboxButton => _driver.FindElement(By.CssSelector("[data-tooltip=\"Inbox\"] .bzz .aio .nU a[title=\"Inbox\"]"));
 		public IWebElement BinButton => _driver.FindElement(By.CssSelector("[data-tooltip=\"Bin\"] .bzz .aio .nU a[title=\"Bin\"]"));
 		public IWebElement StarredButton => _driver.FindElement(By.CssSelector("[data-tooltip=\"Starred\"] .TN .aio .nU a[title=\"Starred\"]"));
-		public IWebElement FirstEmailCheckBoxButton => _driver.FindElement(By.CssSelector("[role =\"grid\"] tr:first-of-type .oZ-x3 .oZ-jc"));
 		public IWebElement MarkAsUnreadButton => _driver.FindElement(By.CssSelector(".nH .aeH .D .nH .Cq .bzn .G-tF .G-Ni [title=\"Mark as unread\"] .asa")); //available after selecting an email
 		public IWebElement StarredEmailButton => _driver.FindElement(By.CssSelector("table[role =\"grid\"] tr:first-of-type td.apU span")); //starred option for the first mail of the list
 		
