@@ -14,7 +14,8 @@ namespace GmailTests.ComponentsPages
 		}
 		//Buttons//
 		public IWebElement IdentifierNextButton => _driver.FindElement(By.XPath("//*[@id=\"identifierNext\"]/span/span"));
-		public IWebElement PasswordNextButton => _driver.FindElement(By.XPath("//*[@id=\"passwordNext\"]/span/span"));
+		public IWebElement PasswordNextButton => _driver.FindElement(By.CssSelector(".FliLIb .U26fgb .CwaK9"));
+
 
 		//Fields//
 		public IWebElement UserNameField => _driver.FindElement(By.XPath("//*[@id=\"identifierId\"]"));
