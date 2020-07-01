@@ -14,7 +14,6 @@ namespace GmailTests
         [TestCase("tucamaiochi@gmail.com", "emailWithAttachment", "text", true, ExpectedResult = true)]
         [TestCase("tucamaiochigmail.com", "title", "text", false, ExpectedResult = false)]
         [TestCase("", "", "", false, ExpectedResult = false)]
-
         public bool MessageSentDisplayed(string emailTo, string title, string emailBody, bool attachment)
         {
             SendEmail(emailTo, title, emailBody, attachment);
@@ -142,6 +141,7 @@ namespace GmailTests
             System.Threading.Thread.Sleep(2000);
             if (!string.IsNullOrEmpty(emailTo))
             {
+                System.Threading.Thread.Sleep(2000);
                 components.MainPage.SendToField.Click();
                 components.MainPage.SendToField.SendKeys(emailTo);
             }
@@ -166,11 +166,14 @@ namespace GmailTests
 
         }
 
-        [Test]
-        public void test()
+        [Test(Description = "Mark E-Mail as important and check if it was moved to Important section")]
+        [TestCase("tucamaiochi@gmail.com", "title", "text", false, ExpectedResult = true)]
+        public bool CheckEmailMarkedAsImportant(string emailTo, string title, string emailBody, bool hasAttachment)
         {
-            var text = EmailRowHelper.GetImportant(components.MainPage.FirstEmailRow);
-            text.Click();
+            SendEmail(emailTo, title, emailBody, false);
+            var importantButton = EmailRowHelper.GetImportant(components.MainPage.FirstEmailRow);
+            importantButton.Click();
+            return true;
         }
 
         protected override void SetupTest()
