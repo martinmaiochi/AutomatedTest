@@ -32,3 +32,15 @@ public IWebElement SubjectField => _driver.FindElement(By.Name("subjectbox"));
 public IWebElement EmailBodyField => _driver.FindElement(By.XPath(".//*[contains(@class, 'Am') and contains(@class, 'Al')]"));
 ```
 ## Helpers Folder
+
+Classes from this folder contains methods to simplify the use of certain elements from page on code.
+At the moment, EmailRowHelper is the only class available and is used when a test needs get any data from an e-mail row from the main page.
+
+In the example below, the method isRead is used to check if the e-mail is marked as read or not by passing wich row from the page you want.
+
+```
+public static bool IsRead(IWebElement emailRow)
+{
+	return emailRow.GetAttribute("class").Contains("yO");
+}
+```
